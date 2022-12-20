@@ -3,13 +3,11 @@
   "version": "1.0.0",
   "description": "A few ESM importable threex modules. Code ported from https://github.com/jeromeetienne/threex.domevents2 and https://github.com/jeromeetienne/threex.dynamictexture",
   "source": "demo/index.html",
-  "exports": {
-    "./threex": "./index.js",
-    "./threex.domevents": "./src/threex.domevents.js",
-    "./threex.domevents.mousepointer": "./src/threex.domevents.mousepointer.js",
-    "./threex.dynamictexture": "./src/threex.dynamictexture.js"
-  },
   "type": "module",
+  "files": [
+    "src",
+    "demo"
+  ],
   "scripts": {
     "demo": "npx parcel",
     "bundle_types": "npx dts-bundle --baseDir ./src/ --out index.d.ts --name threex-esm --main index.js"
@@ -34,7 +32,8 @@
   "dependencies": {
     "dat.gui": "^0.7.9",
     "rxjs": "^7.5.5",
-    "three": "^0.142.0"
+    "three": "^0.142.0",
+    "zeropad": "github:drinkspiller/zeropad"
   },
   "types": "src/index.d.ts",
   "author": "",

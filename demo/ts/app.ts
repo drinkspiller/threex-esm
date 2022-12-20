@@ -4,6 +4,7 @@ import {debounceTime} from 'rxjs/operators';
 import * as THREE from 'three';
 import {OrbitControls} from 'three/examples/jsm/controls/OrbitControls';
 import Stats from 'three/examples/jsm/libs/stats.module';
+import zeropad from 'zeropad';
 
 // NOTE: You probably do NOT want to copy paste these imports. Because these are
 // relative (vs npm installed) they are different in two notable ways. If you
@@ -11,11 +12,13 @@ import Stats from 'three/examples/jsm/libs/stats.module';
 // example section of the README.
 import DomEvents from '../../src/threex.domevents';
 import MousePointer from '../../src/threex.domevents.mousepointer';
+import DynamicTexture from '../../src/threex.dynamictexture';
 
 export class App {
   private camera: THREE.PerspectiveCamera = new THREE.PerspectiveCamera();
   private cube: THREE.Mesh;
   private directionalLight = new THREE.DirectionalLight();
+  private dynamicTexture: DynamicTexture;
   private gui: GUI;
   private isDev: boolean;
   private renderer: THREE.WebGLRenderer = new THREE.WebGLRenderer();
@@ -36,6 +39,10 @@ export class App {
   private animate() {
     this.cube.rotation.x += 0.01;
     this.cube.rotation.y += 0.01;
+    const now = new Date();
+    this.dynamicTexture.clear('#0f0').drawText(
+        `${now.getHours()}:${now.getHours()}:${zeropad(now.getSeconds())}`,
+        undefined, 256, '#f00');
 
     this.render();
     this.stats.update();
@@ -129,12 +136,20 @@ export class App {
   }
 
   configureMesh() {
+    this.dynamicTexture = new DynamicTexture(512, 512);
+    this.dynamicTexture.context.font = 'bolder 80px Verdana';
+    this.dynamicTexture.texture.anisotropy =
+        this.renderer.capabilities.getMaxAnisotropy();
+    this.dynamicTexture.clear('#0f0').drawText('Boop', undefined, 256, '#f00');
+
     const geometry: THREE.BufferGeometry = new THREE.BoxGeometry();
     const material = new THREE.MeshStandardMaterial({
-      color: 0x00ff00,
+      map: this.dynamicTexture.texture,
     });
     this.cube = new THREE.Mesh(geometry, material);
     this.cube.name = 'Green Cube';
+
+
     this.scene.add(this.cube);
   }
 
