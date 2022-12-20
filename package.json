@@ -1,0 +1,38 @@
+{
+  "name": "threex-esm",
+  "version": "1.0.0",
+  "description": "A few ESM importable threex modules. Code ported from https://github.com/jeromeetienne/threex.domevents2 and https://github.com/jeromeetienne/threex.dynamictexture",
+  "source": "demo/index.html",
+  "exports": {
+    "./threex": "./index.js",
+    "./threex.domevents": "./src/threex.domevents.js",
+    "./threex.domevents.mousepointer": "./src/threex.domevents.mousepointer.js",
+    "./threex.dynamictexture": "./src/threex.dynamictexture.js"
+  },
+  "type": "module",
+  "scripts": {
+    "demo": "npx parcel",
+    "bundle_types": "npx dts-bundle --baseDir ./src/ --out index.d.ts --name threex-esm --main index.js"
+  },
+  "devDependencies": {
+    "@parcel/transformer-sass": "^2.6.2",
+    "@parcel/transformer-typescript-tsc": "^2.6.2",
+    "@parcel/validator-typescript": "^2.6.2",
+    "@types/dat.gui": "^0.7.7",
+    "@types/three": "^0.141.0",
+    "@typescript-eslint/parser": "^5.30.5",
+    "dts-bundle": "^0.7.3",
+    "eslint": "^8.19.0",
+    "eslint-config-google": "^0.14.0",
+    "parcel": "^2.6.2",
+    "typescript": "^4.7.4"
+  },
+  "dependencies": {
+    "dat.gui": "^0.7.9",
+    "rxjs": "^7.5.5",
+    "three": "^0.142.0"
+  },
+  "types": "src/index.d.ts",
+  "author": "",
+  "license": "ISC"
+}

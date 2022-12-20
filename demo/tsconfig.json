@@ -1,0 +1,9 @@
+{
+  "include": ["ts/**/*", ],
+  "compilerOptions": {
+    "moduleResolution": "node",
+    "strict": true,
+    "strictPropertyInitialization": false,
+    "target": "esnext",
+  }
+}
